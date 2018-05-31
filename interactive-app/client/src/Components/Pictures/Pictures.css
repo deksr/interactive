@@ -1,0 +1,6 @@
+.cardstyleHover:hover{
+  -webkit-box-shadow: 0 10px 16px -6px #777;
+  -moz-box-shadow: 0 10px 16px -6px #777;
+  box-shadow: 0 10px 16px -6px #777;
+  cursor: pointer;
+}
