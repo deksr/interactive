@@ -4,9 +4,6 @@ import Radium from 'radium';
 import { Card, CardImg, CardText, CardBody,CardColumns, CardTitle, CardSubtitle, Row, Col, Container} from 'reactstrap';
 
 import Masonry from 'react-masonry-component';
-
-
-
 import './Pictures.css';
 
 
