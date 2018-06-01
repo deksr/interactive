@@ -1,11 +1,17 @@
-import React from 'react';
+import * as React from 'react';
+
 import Radium from 'radium';
-import { Card, CardImg, CardText, CardBody, CardTitle, CardSubtitle, Row, Col, Container} from 'reactstrap';
+import { Card, CardImg, CardText, CardBody,CardColumns, CardTitle, CardSubtitle, Row, Col, Container} from 'reactstrap';
+
+import Masonry from 'react-masonry-component';
+
+
+
 import './Pictures.css';
 
 
 
-
+// style related
 const textStyle = {
   // backgroundColor: 'green',
   ':hover': {
@@ -35,34 +41,43 @@ const cardStyle = {
 
 
 
+
+
+
 const Pictures = (props) => {
 
-	const pictures = props.dummyPictureData;
-  const listItemsPictures = pictures.map((picture, index) =>
-        <Col style={rowStyle} xs="4">
-          <Card style={cardStyle} className="cardstyleHover" key={picture.id}>
-            <CardImg top width="100%" src="https://placeholdit.imgix.net/~text?txtsize=33&txt=318%C3%97180&w=318&h=180" alt="Card image cap" />
-            <CardBody>
-              <CardTitle style={textStyle}>{picture.name}</CardTitle>
-              <CardSubtitle>{picture.profession}</CardSubtitle>
-              <CardText>Some quick example</CardText>
-            </CardBody>
-          </Card> 
-        </Col>
-  )
+    const pictures = props.dummyPictureData;
 
+    pictures.map((picture, index) =>{
+      console.log(picture.preview_photos)
+    } )
+
+
+    const listItemsPictures = pictures.map((picture, index) =>
+      picture.preview_photos.map((p,i)=>
+
+        <Card style={cardStyle} className="cardstyleHover" key={picture.id}>
+          <CardImg top width="100%" src={p.urls.regular} />
+          <CardBody>
+            <CardTitle style={textStyle}>{picture.name}</CardTitle>
+            <CardSubtitle>{picture.profession}</CardSubtitle>
+            <CardText>
+            </CardText>
+          </CardBody>
+        </Card> 
+      )
+    )
 
 
   return (
     <div>
-        <Container>
-          <br /><br />
-          <Row style={colStyle}>  
-            {listItemsPictures}
-          </Row>
-          <br /><br />
-
-        </Container>
+      <Container>
+        <br /><br />
+        <CardColumns>
+          {listItemsPictures}
+        </CardColumns>
+        <br /><br />
+      </Container>
     </div>
   );
 
