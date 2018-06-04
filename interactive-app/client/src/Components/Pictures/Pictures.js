@@ -58,8 +58,6 @@ class Pictures extends Component {
 
 
 
-
-
     return (
       <div>
       <Container>
