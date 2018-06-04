@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import Unsplash, { toJson } from 'unsplash-js';
 import './SearchBarItems.css';
+import FaSearch from 'react-icons/lib/fa/search';
+
 
 
 
@@ -36,7 +38,6 @@ class SearchBarItems extends Component {
 		  this.setState({ searchImageData: json.results });
 		  
 		  let searchImage = this.state.searchImageData;
-		  // let emptyarray = [];
 
 
 		  searchImage.map(function(num) {
@@ -83,7 +84,7 @@ class SearchBarItems extends Component {
     return (
     	<div>
 	    	<form autoComplete="off" ref={(el) => this.myFormRef = el}>
-	        <input 
+	        <FaSearch /> <input 
 	          type="text" 
 	          name="search" 
 	          placeholder="Search.." 

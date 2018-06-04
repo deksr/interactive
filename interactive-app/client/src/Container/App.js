@@ -14,7 +14,6 @@ import SiteFooter from '../Dumbbells/Footer'
 
 class App extends Component {
 
-
   constructor() {
     super();
     this.state = {
