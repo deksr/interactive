@@ -1,28 +1,83 @@
 import React, { Component } from 'react';
-import { Card, CardImg, CardText, CardBody, CardTitle, CardSubtitle, Row, Col, Container} from 'reactstrap';
+
+import Modal from 'react-responsive-modal';
+import { Card, CardImg, CardText, CardBody, CardTitle, CardSubtitle} from 'reactstrap';
 
 
 
 
-const Picture = (props) => {
-	console.log("person running")
+//********* styles **********
+const textStyle = {
+  ':hover': {
+    backgroundColor: 'pink'
+  }
+}
 
-	return (
-		<div> 
-	    <p >  I am {props.name} and my profession is  {props.profession} </p> 
-	    <p >{props.children } </p>
-	    
-	    <input type = "text" onChange={props.inputEvent} value={props.name} /> 
-	    
-	    <div onClick = {props.click}> click here to deleteme </div>
-	    <div onClick = {props.dataClick}> click here to see the data </div>
+const cardStyle = {
+  backgroundColor: '#F5F5F5',
+  border: 'none'
+}
+//****************************
 
-	  </div>
-	)	
+
+
+
+
+
+
+
+class Picture extends Component {
+
+
+  state = {
+    open: false,
+  };
+ 
+
+  onOpenModal = () => {
+    this.setState({ open: true });
+  };
+ 
+
+  onCloseModal = () => {
+    this.setState({ open: false });
+  };
+ 
+
+
+
+  render() {
+    const { open } = this.state;
+
+    return (
+      <div>
+        <Card style={cardStyle} className="cardstyleHover">
+          <CardImg top width="100%" src={this.props.pictureobj.urls.regular} />
+          <CardBody>
+	          <CardTitle style={textStyle}></CardTitle>
+	          <CardSubtitle></CardSubtitle>
+	          <CardText> 
+	          <button onClick={this.onOpenModal}>Open modal</button>
+	          <Modal open={open} onClose={this.onCloseModal} center>
+            <h2>Simple centered modal 
+              <CardImg top width="10%" src={this.props.pictureobj.urls.regular} /> 
+             </h2>
+            </Modal>
+	          </CardText>
+          </CardBody>
+        </Card>
+            <br/> <br/>
+
+      </div>
+    );
+
+  }
 }
 
 
+  
 
 
 
-export default Picture
+
+export default Picture;

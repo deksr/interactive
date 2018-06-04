@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
+
 import { Collapse, Navbar, NavbarToggler, NavbarBrand, Nav, NavItem, NavLink } from 'reactstrap';
 import logo from  '../pantone.svg';
 import './Navbar.css';
 
-
-
 class SiteNavbar extends Component {
+  
   constructor(props) {
     super(props);
 

@@ -1,85 +1,82 @@
-import * as React from 'react';
+// import * as React from 'react';
+import React, { Component } from 'react';
+import Picture from './Picture/Picture';
+import SearchBarItems from '../SearchBarItems/SearchBarItems'
 
+import Unsplash, { toJson } from 'unsplash-js';
+import { CardColumns, Container} from 'reactstrap';
 import Radium from 'radium';
-import { Card, CardImg, CardText, CardBody,CardColumns, CardTitle, CardSubtitle, Row, Col, Container} from 'reactstrap';
 
-import Masonry from 'react-masonry-component';
 import './Pictures.css';
 
 
 
-// style related
-const textStyle = {
-  // backgroundColor: 'green',
-  ':hover': {
-    backgroundColor: 'pink'
+
+
+
+class Pictures extends Component {
+
+  constructor(props) {
+    // console.log(props)
+    super(props);
+    this.state = {
+      defaultImages: []
+    }
   }
-}
 
 
-const colStyle = {
-  // backgroundColor: 'red'
-};
+  componentDidMount() {
+    const unsplash = new Unsplash({
+      applicationId: process.env.REACT_APP_UNSPLASH_APPLICATION_KEY,
+      secret: process.env.REACT_APP_UNSPLASH_API_KEY,
+      callbackUrl: "http://localhost:3000/"
+    });
 
 
-const rowStyle = {
-  // backgroundColor: 'blue',
-  marginTop: '30px'
-};
-
-const cardStyle = {
-  backgroundColor: '#F5F5F5',
-  border: 'none'
-}
-
-
-
+    unsplash.search.collections("row", 3, 60)
+    .then(toJson)
+    .then(json => {
+      console.log(json.results);
+      this.setState({ defaultImages:json.results });
+    });
+  }
 
 
 
+  
 
 
-
-
-const Pictures = (props) => {
-
-    const pictures = props.dummyPictureData;
-
-    pictures.map((picture, index) =>{
-      console.log(picture.preview_photos)
-    } )
-
-
+  render() {
+    const pictures =  this.props.ptcEnteredData || this.state.defaultImages;
     const listItemsPictures = pictures.map((picture, index) =>
-      picture.preview_photos.map((p,i)=>
-
-        <Card style={cardStyle} className="cardstyleHover" key={picture.id}>
-          <CardImg top width="100%" src={p.urls.regular} />
-          <CardBody>
-            <CardTitle style={textStyle}>{picture.name}</CardTitle>
-            <CardSubtitle>{picture.profession}</CardSubtitle>
-            <CardText>
-            </CardText>
-          </CardBody>
-        </Card> 
-      )
+      picture.preview_photos.map((picobj,i)=> {
+        return (
+          <Picture key={picobj.id} pictureobj={picobj}/>
+        )
+      })
     )
 
 
-  return (
-    <div>
+
+
+
+    return (
+      <div>
       <Container>
-        <br /><br />
+        <br/> <br/>
         <CardColumns>
           {listItemsPictures}
         </CardColumns>
-        <br /><br />
       </Container>
-    </div>
-  );
+      </div>
+    )
+  }
 
-	
 }
+
+
+
+
 
 
 

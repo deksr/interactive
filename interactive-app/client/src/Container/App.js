@@ -1,66 +1,34 @@
 import React, { Component } from 'react';
 
 import Radium from 'radium';
-import axios from 'axios';
-import Unsplash, { toJson } from 'unsplash-js';
-import Modal from 'react-responsive-modal';
-
-
 
 import './App.css';
 
-
 import SiteNavbar from '../Dumbbells/Navbar'
-import SiteFooter from '../Dumbbells/Footer'
-
+import SearchBarItems from '../Components/SearchBarItems/SearchBarItems'
 import Pictures from '../Components/Pictures/Pictures';
-import Recommendations from '../Components/Recommendations/Recommendations';
-
+import SiteFooter from '../Dumbbells/Footer'
 
 
 
 
 class App extends Component {
 
+
   constructor() {
     super();
     this.state = {
-      allsearchImages: [],
-      open: false
+      enteredData: null
     }
   }
 
 
 
-
-
   componentDidMount() {
-    // use express proxy
     this.callApi()
       .then(res => this.setState({ response: res.express }))
       .catch(err => console.log(err));
-    //////////////////////////
-
-
-
-     // use unsplashjs
-    const unsplash = new Unsplash({
-      applicationId: "",
-      secret: "",
-      callbackUrl: "http://localhost:3000/"
-    });
-
-
-    unsplash.search.collections("flowers", 1, 60)
-    .then(toJson)
-    .then(json => {
-      console.log(json.results);
-      this.setState({ allsearchImages:json.results });
-    });
-    //////////////////////////
-  }; 
-
-     
+  }
 
 
   callApi = async () => {
@@ -68,40 +36,23 @@ class App extends Component {
     const body = await response.json();
     if (response.status !== 200) throw Error(body.message);
     return body;
-  };
+  }
 
 
-
-  // eventHandlers for
-  onOpenModal = () => {
-    this.setState({ open: true });
-  };
- 
-
-
-  onCloseModal = () => {
-    this.setState({ open: false });
-  };
-  //////////////////////////
-
-
+  enteredDatahandler = (ctp) => {
+    console.log(ctp)
+    this.setState({enteredData: ctp })
+  }
 
 
 
   render() {
-    const { open } = this.state;
-
     return (
       <div className="App">
-      <SiteNavbar/>
-          <button onClick={this.onOpenModal}>Open modal</button>
-          <Modal open={open} onClose={this.onCloseModal} center>
-            <h2>Simple centered modal</h2>
-          </Modal>
-          <Pictures dummyPictureData = {this.state.allsearchImages}/>
-          {/*<Recommendations dummyRecommendationData = {this.state.recomendationDummys} />*/}
-
-          <SiteFooter />
+        <SiteNavbar/>
+          <SearchBarItems ctpEnteredData={this.enteredDatahandler}/>
+          <Pictures ptcEnteredData={this.state.enteredData}/>
+        <SiteFooter />
       </div>
     );
   }
