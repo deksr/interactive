@@ -36,7 +36,7 @@ class Pictures extends Component {
     unsplash.search.collections("row", 3, 60)
     .then(toJson)
     .then(json => {
-      console.log(json.results);
+      // console.log(json.results);
       this.setState({ defaultImages:json.results });
     });
   }
@@ -48,6 +48,8 @@ class Pictures extends Component {
 
   render() {
     const pictures =  this.props.ptcEnteredData || this.state.defaultImages;
+
+    
     const listItemsPictures = pictures.map((picture, index) =>
       picture.preview_photos.map((picobj,i)=> {
         return (

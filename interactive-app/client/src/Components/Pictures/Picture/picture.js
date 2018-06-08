@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 
 import Modal from 'react-responsive-modal';
 import { Card, CardImg, CardText, CardBody, CardTitle, CardSubtitle} from 'reactstrap';
+import FaUser from 'react-icons/lib/fa/user';
+
 
 
 
@@ -15,8 +17,11 @@ const textStyle = {
 
 const cardStyle = {
   backgroundColor: '#F5F5F5',
-  border: 'none'
+  border: 'none',
+  flex: 1
 }
+
+
 //****************************
 
 
@@ -52,18 +57,15 @@ class Picture extends Component {
     return (
       <div>
         <Card style={cardStyle} className="cardstyleHover">
-          <CardImg top width="100%" src={this.props.pictureobj.urls.regular} />
+          <CardImg top width="100%" src={this.props.pictureobj.urls.regular} onClick={this.onOpenModal}/>
           <CardBody>
 	          <CardTitle style={textStyle}></CardTitle>
 	          <CardSubtitle></CardSubtitle>
-	          <CardText> 
-	          <button onClick={this.onOpenModal}>Open modal</button>
-	          <Modal open={open} onClose={this.onCloseModal} center>
-            <h2>Simple centered modal 
-              <CardImg top width="10%" src={this.props.pictureobj.urls.regular} /> 
-             </h2>
+	          <CardText> <FaUser /> 
+	          <Modal size="sm" open={open} onClose={this.onCloseModal} center>
+              <CardImg size="sm" src={this.props.pictureobj.urls.regular} /> 
             </Modal>
-	          </CardText>
+	          </CardText> 
           </CardBody>
         </Card>
             <br/> <br/>

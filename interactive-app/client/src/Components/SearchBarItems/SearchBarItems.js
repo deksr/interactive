@@ -31,7 +31,7 @@ class SearchBarItems extends Component {
 		});
 
 
-		unsplash.search.collections(this.search.value, 1, 3)
+		unsplash.search.photos(this.search.value, 1, 30)
 		.then(toJson)
 		.then(json => {
 			console.log(json.results)
